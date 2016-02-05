@@ -10,6 +10,12 @@ var appKey = "f6832b2d70e3873f88c73926d1aa8551";
 
 module.exports = function setup(options, imports, register) {
   var app = express ();
+  
+  app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
   app.get ('/weather/all', function (apiRequest, apiResponse, next)
   {
