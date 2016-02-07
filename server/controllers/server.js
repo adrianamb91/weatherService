@@ -11,12 +11,20 @@ var appKey = "f6832b2d70e3873f88c73926d1aa8551";
 module.exports = function setup(options, imports, register) {
   var app = express ();
   
+  /**
+   * Method to add headers on each request
+   */
   app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
 
+  /**
+   * Get all frequent cities current weather info endpoint
+   * 
+   * This method calls an openweathermap endpoint on each city to retrieve current weather
+   */
   app.get ('/weather/all', function (apiRequest, apiResponse, next)
   {
       //Moskow, Kiev, London, Barcelona, Paris, Bucharest, New York, Lisbon, Rio de Janeiro, Tokyo
@@ -44,6 +52,11 @@ module.exports = function setup(options, imports, register) {
       
   });
   
+  /**
+   * Get detailed weather info for city
+   * 
+   * This method calls 3 openweathermap endpoints for the city, one for current weather, one for hourly prognosis and one for daily prognosis
+   */
   app.get ('/weather/:cityId', function (apiRequest, apiResponse, next)
   {
       var cityId = apiRequest.params.cityId;
