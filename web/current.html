@@ -1,0 +1,56 @@
+
+<main class="main-content">
+	<div class="fullwidth-block">
+		<div class="container">
+			<h2 class="section-title">Der Welt</h2>
+			<div class="row">
+				<div class="col-md-3 col-sm-6" ng-repeat="city in world track by $index" ng-if="$index < 4" ng-click="changeCity(city.cityId)">
+					<div class="live-camera">
+						<figure class="live-camera-cover"><img ng-src="images/{{city.cityName | getImageName}}.png" alt=""></figure>
+						<div class="location">
+							<h3 style="float:left; font-weight: 100">{{city.cityName}}</h3>
+							<small style="float: right"class="date">{{city.temp | number : 0}} <sup>o</sup>C</small>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="forecast-table" style="margin-top: 80px;">
+		<div class="container">
+			<div class="forecast-container">
+				<div class="today forecast">
+					<div class="forecast-header">
+						<div class="day">{{date | date : 'EEEE'}}</div>
+						<div class="date">{{date | date : 'd MMMM'}}</div>
+					</div> <!-- .forecast-header -->
+					<div class="forecast-content">
+						<div class="location">{{weatherData.cityName}}</div>
+						<div class="degree">
+							<div class="num">{{weatherData.current.temp | number : 0}}<sup>o</sup>C</div>
+							<div class="forecast-icon">
+								<img ng-src="images/icons/{{weatherData.current.weatherType}}.svg" alt="" width=90>
+							</div>	
+						</div>
+						<span><img src="images/icon-umberella.png" alt="">{{weatherData.current.humidity}}%</span>
+						<span><img src="images/icon-wind.png" alt="">{{weatherData.current.windSpeed | number : 1}}km/h</span>
+						<span><img src="images/icon-compass.png" alt="">East</span>
+					</div>
+				</div>
+				<div class="forecast" ng-repeat="day in weatherData.daily.list track by $index" ng-if="$index > 0 && $index < 7">
+					<div class="forecast-header">
+						<div class="day">{{day.date | date : 'EEEE'}}</div>
+					</div> <!-- .forecast-header -->
+					<div class="forecast-content">
+						<div class="forecast-icon">
+							<img ng-src="images/icons/{{day.weatherType}}.svg" alt="" width=48>
+						</div>
+						<div class="degree">{{day.tempMax | number : 0}}<sup>o</sup>C</div>
+						<small>{{day.tempMin | number : 0}}<sup>o</sup></small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
